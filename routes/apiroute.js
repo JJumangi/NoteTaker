@@ -13,9 +13,11 @@ router.post('/notes', (req, res) => {
 
 //get all notes
 router.get('/notes', (req, res) => {
+  console.log('hit')
   storer
   .getNotes()
   .then((notes) => {
+    console.log(notes)
     return res.json(notes);
   })
 })

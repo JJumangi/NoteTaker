@@ -1,10 +1,7 @@
 const router = require('express').Router();
 const storer = require('../db/notestorer')
-//get all notes
-router.get('/notes', (req, res) => {
-  storer
-  .getNotes()
-})
+
+
 //create/add note
 router.post('/notes', (req, res) => {
   storer
@@ -15,7 +12,20 @@ router.post('/notes', (req, res) => {
 })
 
 //get all notes
-router.post('/notes', (req, res) => {
-  store
+router.get('/notes', (req, res) => {
+  storer
+  .getNotes()
+  .then((notes) => {
+    return res.json(notes);
+  })
 })
 
+//delete note
+router.delete('/notes/:id', (req, res) => {
+  store
+  .removeNote(req.params,id)
+  .then((note) => res.json(note))
+  .catch((err) => res.status(500).json(err));
+})
+
+module.exports = router;
